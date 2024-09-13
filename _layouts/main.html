@@ -60,7 +60,28 @@
       <li><a href="{{ site.baseurl }}/HELP">Help</a></li>
       <li><a href="{{ github_edit }}/{{ page.path }}">Quick edit</a></li>
     </ul>
+    <button id="theme-toggle">Toggle Dark Mode</button>
 
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check for saved theme preference or default to light theme
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.classList.toggle('dark-theme', currentTheme === 'dark');
+        updateButtonText();
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            const isDarkTheme = body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+            updateButtonText();
+        });
+
+        function updateButtonText() {
+            themeToggle.textContent = body.classList.contains('dark-theme') ? 'Toggle Light Mode' : 'Toggle Dark Mode';
+        }
+    </script>
     <div class="main">
       <div class="container">
 	{% if page.plugins contains 'slideshow' %}
@@ -90,28 +111,6 @@
 	  <a href="https://github.com/defeo/class-boilerplate">Structure of the website</a> by <a href="http://defeo.lu">Luca De Feo</a></p>
 	</div>
       </footer>
-        <button id="theme-toggle">Toggle Dark Mode</button>
-
-        <script>
-            const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
-
-            // Check for saved theme preference or default to light theme
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            body.classList.toggle('dark-theme', currentTheme === 'dark');
-            updateButtonText();
-
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark-theme');
-                const isDarkTheme = body.classList.contains('dark-theme');
-                localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
-                updateButtonText();
-            });
-
-            function updateButtonText() {
-                themeToggle.textContent = body.classList.contains('dark-theme') ? 'Toggle Light Mode' : 'Toggle Dark Mode';
-            }
-        </script>
     </div>
 
     {% if page.plugins contains 'slideshow' %}
