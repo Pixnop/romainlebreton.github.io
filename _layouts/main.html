@@ -123,5 +123,28 @@
     {% for s in page.scripts %}
     <script src="{{ s }}"></script>
     {% endfor %}
+
+    <button id="theme-toggle">Toggle Dark Mode</button>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check for saved theme preference or default to light theme
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.classList.toggle('dark-theme', currentTheme === 'dark');
+        updateButtonText();
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            const isDarkTheme = body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDarkTheme ? 'dark' : 'light');
+            updateButtonText();
+        });
+
+        function updateButtonText() {
+            themeToggle.textContent = body.classList.contains('dark-theme') ? 'Toggle Light Mode' : 'Toggle Dark Mode';
+        }
+    </script>
   </body>
 </html>
